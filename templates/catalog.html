@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1>Product & Service Catalog</h1>
+</div>
+
+<div class="grid">
+    <div class="card">
+        <h3>Manual Add</h3>
+        <form method="POST">
+            <input type="hidden" name="action" value="manual">
+            <input type="text" name="name" placeholder="Item/Service Name" required>
+            <input type="number" step="0.01" name="price" placeholder="Price ($)" required>
+            <input type="number" name="stock" placeholder="Stock Quantity (Leave blank if infinite)">
+            <label><input type="checkbox" name="is_infinite" style="width: auto;"> This is an unlimited service</label>
+            <button type="submit" style="width: 100%;">Add Item</button>
+        </form>
+    </div>
+    <div class="card">
+        <h3>Bulk CSV Upload</h3>
+        <p style="font-size: 0.9rem; color: #64748b;">Format: Name, Price, Stock, IsInfinite (True/False)</p>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="csv">
+            <input type="file" name="csv_file" accept=".csv" required>
+            <button type="submit" style="background: #10b981; width: 100%;">Upload CSV</button>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Current Inventory</h3>
+    <table>
+        <tr><th>Name</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
+        {% for p in products %}
+        <tr style="{% if p['stock'] < 5 and not p['is_infinite'] %}background: #fef2f2;{% endif %}">
+            <td><strong>{{ p['name'] }}</strong></td>
+            <td>${{ "%.2f"|format(p['price']) }}</td>
+            <td>{% if p['is_infinite'] %}<span style="color: #10b981; font-weight: bold;">Unlimited</span>{% else %}{{ p['stock'] }}{% endif %}</td>
+            <td>
+                <!-- We will build these routes next -->
+                <a href="/edit_product/{{ p['id'] }}" style="color: #2563eb; text-decoration: none; margin-right: 15px; font-weight: 600;">Edit</a>
+                <a href="/delete_product/{{ p['id'] }}" style="color: #ef4444; text-decoration: none; font-weight: 600;" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

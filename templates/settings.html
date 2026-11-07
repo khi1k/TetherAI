@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="margin-bottom: 2rem;">
+    <h1 style="margin: 0; font-size: 2rem;">Account Settings</h1>
+    <p style="color: #64748b; margin-top: 0.5rem;">Manage your business profile and security preferences.</p>
+</div>
+
+<form method="POST">
+    <div class="grid">
+        <!-- Business Profile Card -->
+        <div class="card" style="margin-bottom: 0;">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+                <div style="background: #e0f2fe; color: #2563eb; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem;">🏢</div>
+                <div>
+                    <h3 style="margin: 0;">Business Profile</h3>
+                    <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Update your public details.</p>
+                </div>
+            </div>
+
+            <label style="font-weight: 600; font-size: 0.9rem; color: #475569;">Business Name</label>
+            <input type="text" name="name" value="{{ business.name }}" required>
+
+            <label style="font-weight: 600; font-size: 0.9rem; color: #475569;">Email Address</label>
+            <input type="email" name="email" value="{{ business.email }}" required>
+        </div>
+
+        <!-- Security Card -->
+        <div class="card" style="margin-bottom: 0;">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+                <div style="background: #fee2e2; color: #ef4444; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem;">🔒</div>
+                <div>
+                    <h3 style="margin: 0;">Security</h3>
+                    <p style="margin: 0; color: #64748b; font-size: 0.9rem;">Protect your account.</p>
+                </div>
+            </div>
+
+            <label style="font-weight: 600; font-size: 0.9rem; color: #475569;">Current Password (Required to change password)</label>
+            <input type="password" name="old_password" placeholder="Enter current password">
+
+            <label style="font-weight: 600; font-size: 0.9rem; color: #475569;">New Password</label>
+            <input type="password" name="new_password" placeholder="Enter new password">
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem; text-align: right;">
+        <button type="submit" style="padding: 1rem 3rem; font-size: 1.1rem;">Save All Changes</button>
+    </div>
+</form>
+{% endblock %}

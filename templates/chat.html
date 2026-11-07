@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="max-width: 600px; margin: 0 auto;">
+
+    <!-- View Toggle -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid #ddd; padding-bottom: 1rem;">
+        <h3 style="margin: 0;">Tether AI Assistant</h3>
+        <div>
+            <label style="font-weight: bold; margin-right: 0.5rem;">Mode:</label>
+            <select id="roleToggle" name="role" form="chatForm" style="width: auto; margin: 0;">
+                <option value="customer">Customer View</option>
+                <option value="owner">Owner View</option>
+            </select>
+        </div>
+    </div>
+
+    <div style="background: #f1f5f9; height: 400px; overflow-y: scroll; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        {% for msg in history %}
+            <div style="margin-bottom: 1rem; text-align: {% if msg.role == 'user' %}right{% else %}left{% endif %};">
+                <span style="display: inline-block; padding: 0.75rem; border-radius: 8px; background: {% if msg.role == 'user' %}#2563eb{% else %}#e2e8f0{% endif %}; color: {% if msg.role == 'user' %}#fff{% else %}#000{% endif %}; max-width: 80%; text-align: left; white-space: pre-wrap;">{{ msg.text }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form method="POST" id="chatForm" style="display: flex; gap: 1rem;">
+        <input type="text" name="message" placeholder="Ask a question..." required style="margin-bottom: 0; flex: 1;">
+        <button type="submit">Send</button>
+    </form>
+</div>
+{% endblock %}

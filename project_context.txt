@@ -1,0 +1,15 @@
+Project: Tether AI Technologies
+Goal: Build a web app for small business owners (barber shops, corner stores) to track sales and manage customers.
+
+Tech Stack:
+- Backend: Python (Flask)
+- Frontend: HTML/CSS/JS
+- Database: SQLite
+- Functional Language: Racket
+
+Architecture Requirements:
+1. Imperative: Sales processing, validation, loops.
+2. Object-Oriented: Classes for Customer, Service, Visit, Business.
+3. Functional: Racket for data transformations.
+4. Declarative: SQL queries for reports.
+5. AI Integration: Business insights engine.

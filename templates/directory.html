@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2.5rem; color: #0f172a;">Discover Local Businesses</h1>
+    <p style="color: #64748b; font-size: 1.1rem;">Browse our network of AI-powered small businesses.</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
+    {% for b in businesses %}
+    <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+            <h3 style="margin-top: 0; color: #2563eb;">{{ b['name'] }}</h3>
+            <p style="color: #64748b; font-size: 0.9rem;">Click below to view their menu and chat with their AI assistant.</p>
+        </div>
+        <a href="/business/{{ b['id'] }}" style="display: block; text-align: center; background: #0f172a; color: white; padding: 0.75rem; border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 1rem;">Visit Store</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

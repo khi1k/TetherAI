@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h1 style="margin: 0;">Full Revenue History</h1>
+    <a href="/dashboard" class="btn-outline" style="padding: 0.75rem 1.5rem; text-decoration: none; border-radius: 6px; font-weight: 600;">Back to Dashboard</a>
+</div>
+
+<!-- Full History Chart Card -->
+<div class="card">
+    <h3>All-Time Revenue Trend</h3>
+    <p style="color: #64748b; font-size: 0.9rem; margin-top: -0.5rem;">Daily revenue from your first sale to today.</p>
+    <canvas id="historyChart" height="100"></canvas>
+</div>
+
+<!-- Receipt Table Card -->
+<div class="card">
+    <h3>All Receipts</h3>
+    <table>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Date & Time</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+        {% for t in transactions %}
+        <tr>
+            <td>#{{ t['id'] }}</td>
+            <td>{{ t['date'] }}</td>
+            <td><strong>${{ "%.2f"|format(t['total']) }}</strong></td>
+            <td><a href="/receipt/{{ t['id'] }}" style="color: #2563eb; font-weight: 600; text-decoration: none;">View Receipt</a></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4" style="text-align: center; color: #64748b;">No transactions yet.</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('historyChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line', // Changed to a line chart
+        data: {
+            labels: {{ chart_dates | tojson }},
+            datasets: [{
+                label: 'Daily Revenue ($)',
+                data: {{ chart_totals | tojson }},
+                borderColor: '#2563eb',
+                backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                borderWidth: 2,
+                fill: true, // Fills the area under the line
+                tension: 0.3, // Makes the line slightly curved/smooth
+                pointRadius: 3
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return '$' + context.parsed.y.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

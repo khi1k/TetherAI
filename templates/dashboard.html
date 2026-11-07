@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1 style="margin: 0;">Welcome, {{ session['business_name'] }}</h1>
+</div>
+
+{% if restock_alert %}
+    <div class="alert alert-warning" style="margin-top: 1rem;">⚠️ {{ restock_alert }}</div>
+{% endif %}
+{% if pricing_alert %}
+    <div class="alert alert-info" style="margin-top: 1rem; border-left: 5px solid #3b82f6; background: #f0f9ff;">
+        <strong>💡 Tether AI Insight:</strong> {{ pricing_alert }}
+    </div>
+{% endif %}
+
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="margin: 0;">7-Day Revenue Trend</h3>
+        <a href="/history" class="btn-outline" style="padding: 0.5rem 1rem; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.9rem;">View Full History →</a>
+    </div>
+    <canvas id="revenueChart" height="100"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{ chart_dates | tojson }},
+            datasets: [{
+                label: 'Revenue ($)',
+                data: {{ chart_totals | tojson }},
+                backgroundColor: '#2563eb',
+                borderRadius: 4
+            }]
+        },
+        options: { scales: { y: { beginAtZero: true } } }
+    });
+</script>
+{% endblock %}

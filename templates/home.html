@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="text-align: center; padding: 4rem 1rem; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); border-radius: 16px; color: white; margin-top: -2rem; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);">
+    <h1 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -1px;">Empowering Local Businesses.</h1>
+    <p style="font-size: 1.25rem; color: #cbd5e1; max-width: 700px; margin: 0 auto 2.5rem auto;">Tether AI provides enterprise-grade Point of Sale, Inventory Management, and AI Business Insights at a price small businesses can actually afford.</p>
+    
+    <div style="display: flex; gap: 1rem; justify-content: center;">
+        <a href="/login" style="background: #2563eb; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: 0.2s;">Business Login</a>
+        <a href="/directory" style="background: white; color: #0f172a; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 1.1rem; transition: 0.2s;">Explore Local Directory</a>
+    </div>
+</div>
+
+<div style="margin-top: 4rem; text-align: center;">
+    <h2 style="font-size: 2rem; color: #0f172a; margin-bottom: 2rem;">Why Choose Tether AI?</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+        <div class="card" style="text-align: left;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">📊</div>
+            <h3>Real-Time POS</h3>
+            <p style="color: #64748b;">A touch-friendly register that prevents out-of-stock errors and prints digital receipts instantly.</p>
+        </div>
+        <div class="card" style="text-align: left;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">📦</div>
+            <h3>Smart Inventory</h3>
+            <p style="color: #64748b;">Upload your catalog via CSV. Track physical stock or mark items as unlimited services.</p>
+        </div>
+        <div class="card" style="text-align: left;">
+            <div style="font-size: 2rem; margin-bottom: 1rem;">💡</div>
+            <h3>AI Business Insights</h3>
+            <p style="color: #64748b;">Our Gemini-powered AI analyzes your sales to suggest dynamic pricing strategies and alerts you when to restock.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Transaction History</h1>
+<div class="card">
+    <table>
+        <tr>
+            <th>Receipt ID</th>
+            <th>Date</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+        {% for t in transactions %}
+        <tr>
+            <td>#{{ t['id'] }}</td>
+            <td>{{ t['date'] }}</td>
+            <td>${{ "%.2f"|format(t['total']) }}</td>
+            <td><a href="/receipt/{{ t['id'] }}" style="color: #2563eb; font-weight: bold;">View Receipt</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

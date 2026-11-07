@@ -1,0 +1,16 @@
+# Environments
+.venv/
+venv/
+env/
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Database & Mac files
+tether_universal.db
+.DS_Store
+
+.idea/
+*.iml

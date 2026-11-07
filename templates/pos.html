@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Point of Sale (POS)</h1>
+<div class="grid" style="grid-template-columns: 2fr 1fr;">
+    <div class="card">
+        <h3>Select Items</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+            {% for p in products %}
+                {% if not p['is_infinite'] and p['stock'] <= 0 %}
+                    <div style="background: #e2e8f0; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid #cbd5e1; opacity: 0.5; cursor: not-allowed;">
+                        <strong style="color: #64748b; display: block;">{{ p['name'] }}</strong>
+                        <span style="color: #ef4444; font-size: 0.8rem;">Out of Stock</span>
+                    </div>
+                {% else %}
+                    <a href="/add_to_cart/{{ p['id'] }}" style="text-decoration: none;">
+                        <div style="background: #f1f5f9; padding: 1rem; border-radius: 8px; text-align: center; border: 1px solid #cbd5e1; transition: 0.2s;">
+                            <strong style="color: #0f172a; display: block;">{{ p['name'] }}</strong>
+                            <span style="color: #2563eb; font-weight: bold;">${{ "%.2f"|format(p['price']) }}</span>
+                        </div>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="card" style="background: #f8fafc;">
+        <h3>Current Order</h3>
+        <table style="margin-bottom: 1rem;">
+            {% for item in cart %}
+            <tr>
+                <td>{{ item.qty }}x</td>
+                <td>{{ item.name }}</td>
+                <td>${{ "%.2f"|format(item.subtotal) }}</td>
+                <td><a href="/remove_from_cart/{{ item.id }}" style="color: red; text-decoration: none; font-weight: bold;">X</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2 style="text-align: right; margin-top: 1rem;">Total: ${{ "%.2f"|format(total) }}</h2>
+
+        <form action="/checkout" method="POST" id="checkout-form">
+            <div style="background: white; border: 1px dashed #cbd5e1; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 0;"><strong>Simulated Payment Terminal</strong></p>
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem;">
+                    <span style="font-size: 1.5rem;">💳</span>
+                    <span style="font-size: 0.9rem; color: #0f172a;">Swipe, Tap, or Insert Card</span>
+                </div>
+                <button type="button" onclick="processPayment()" style="width: 100%; background: #10b981; font-size: 1.1rem;">Authorize Payment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function processPayment() {
+        const btn = event.target;
+        btn.innerHTML = 'Processing...';
+        btn.style.background = '#f59e0b';
+
+        setTimeout(() => {
+            btn.innerHTML = 'Approved ✓';
+            btn.style.background = '#10b981';
+            setTimeout(() => {
+                document.getElementById('checkout-form').submit();
+            }, 500);
+        }, 1500);
+    }
+</script>
+{% endblock %}

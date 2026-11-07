@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="max-width: 400px; margin: 0 auto; font-family: monospace;">
+    <h2 style="text-align: center;">Tether AI Receipt</h2>
+    <p style="text-align: center;">Receipt #{{ trans['id'] }}<br>{{ trans['date'] }}</p>
+    <hr>
+    <table style="width: 100%;">
+        {% for item in items %}
+        <tr>
+            <td>{{ item['quantity'] }}x {{ item['name'] }}</td>
+            <td style="text-align: right;">${{ "%.2f"|format(item['price'] * item['quantity']) }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    <h3 style="text-align: right;">Total: ${{ "%.2f"|format(trans['total']) }}</h3>
+    <div style="text-align: center; margin-top: 2rem;">
+        <button onclick="window.print()" style="background: #333;">Print Receipt</button>
+        <a href="/transactions" style="display: block; margin-top: 1rem; color: #2563eb;">Back to History</a>
+    </div>
+</div>
+{% endblock %}

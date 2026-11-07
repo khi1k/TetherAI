@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="max-width: 400px; margin: 5rem auto; text-align: center;">
+    <h2>Create an Account</h2>
+    <p style="color: #666; margin-bottom: 2rem;">Start managing your business with Tether AI</p>
+    
+    <form method="POST" style="text-align: left;">
+        <label>Business Name</label>
+        <input type="text" name="name" placeholder="e.g., Fresh Cuts Barbershop" required>
+        
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="you@business.com" required>
+        
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Create a strong password" required>
+        
+        <button type="submit" style="width: 100%; margin-top: 1rem; background: #10b981;">Create Account</button>
+    </form>
+    
+    <p style="margin-top: 1.5rem; font-size: 0.9rem;">
+        Already have an account? <a href="/login" style="color: #2563eb; font-weight: bold; text-decoration: none;">Log in here</a>
+    </p>
+</div>
+{% endblock %}
