@@ -5,7 +5,6 @@ import hashlib
 import os
 from datetime import datetime, timedelta
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from google import genai
 from dotenv import load_dotenv
 from groq import Groq
 
